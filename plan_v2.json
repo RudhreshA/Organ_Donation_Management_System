@@ -1,0 +1,219 @@
+[
+  {
+    "step": "Read and analyze pom.xml for backend dependencies",
+    "sub_steps": [
+      "Read /home/coder/project/workspace/question_generation_service/solutions/332a0778-9402-4e30-ae6a-c44dd4be37ff/springapp/pom.xml.",
+      "Note dependencies: spring-boot-starter-web, spring-boot-starter-data-jpa, validation, mysql, lombok.",
+      "Verify Java 17 and Hibernate/MySQL settings."
+    ],
+    "files_to_add": [],
+    "files_to_edit": [
+      "/home/coder/project/workspace/question_generation_service/solutions/332a0778-9402-4e30-ae6a-c44dd4be37ff/springapp/pom.xml"
+    ],
+    "description": "Understand current backend dependency setup and confirm MySQL, Spring Boot, JPA, Validation, and Lombok are present so coding patterns and annotations align to available libraries. This informs model/entity/controller implementations."
+  },
+  {
+    "step": "Implement Entity Models and Repositories for Donor and OrganRequest",
+    "sub_steps": [
+      "Create Donor entity with required fields, validation annotations, and JPA mapping.",
+      "Create OrganRequest entity with all specified fields, enums for urgency and status, validation, JPA mapping.",
+      "Create DonorRepository and OrganRequestRepository (extends JpaRepository)."
+    ],
+    "files_to_add": [
+      "/home/coder/project/workspace/question_generation_service/solutions/332a0778-9402-4e30-ae6a-c44dd4be37ff/springapp/src/main/java/com/examly/springapp/model/Donor.java",
+      "/home/coder/project/workspace/question_generation_service/solutions/332a0778-9402-4e30-ae6a-c44dd4be37ff/springapp/src/main/java/com/examly/springapp/model/OrganRequest.java",
+      "/home/coder/project/workspace/question_generation_service/solutions/332a0778-9402-4e30-ae6a-c44dd4be37ff/springapp/src/main/java/com/examly/springapp/model/RequestStatus.java",
+      "/home/coder/project/workspace/question_generation_service/solutions/332a0778-9402-4e30-ae6a-c44dd4be37ff/springapp/src/main/java/com/examly/springapp/model/UrgencyLevel.java",
+      "/home/coder/project/workspace/question_generation_service/solutions/332a0778-9402-4e30-ae6a-c44dd4be37ff/springapp/src/main/java/com/examly/springapp/repository/DonorRepository.java",
+      "/home/coder/project/workspace/question_generation_service/solutions/332a0778-9402-4e30-ae6a-c44dd4be37ff/springapp/src/main/java/com/examly/springapp/repository/OrganRequestRepository.java"
+    ],
+    "files_to_edit": [],
+    "description": "Defines database schema and ORM mapping, including fields, enums, validation constraints and repository interfaces for CRUD operations. Enables separation of persistence logic from business logic."
+  },
+  {
+    "step": "Create Service Layer for Donor and OrganRequest Management",
+    "sub_steps": [
+      "Create DonorService with create, list, get-by-id methods, including validation logic (age, OrganType).",
+      "Create OrganRequestService for create, list, status updates, with validation (OrganType, unitsRequired, enums).",
+      "Throw descriptive exceptions on validation failures."
+    ],
+    "files_to_add": [
+      "/home/coder/project/workspace/question_generation_service/solutions/332a0778-9402-4e30-ae6a-c44dd4be37ff/springapp/src/main/java/com/examly/springapp/service/DonorService.java",
+      "/home/coder/project/workspace/question_generation_service/solutions/332a0778-9402-4e30-ae6a-c44dd4be37ff/springapp/src/main/java/com/examly/springapp/service/OrganRequestService.java"
+    ],
+    "files_to_edit": [],
+    "description": "Encapsulates business logic for donor and Organ request processes, including all validation and data manipulation, making controllers thinner and easily testable. Supports error handling to surface validation errors per requirements."
+  },
+  {
+    "step": "Implement Controllers for REST endpoints (Donor, OrganRequest, Organ Availability)",
+    "sub_steps": [
+      "Create DonorController handling /api/donors endpoints: register (POST), list (GET), get-by-id (GET).",
+      "Create OrganRequestController: create (POST /api/requests), list (GET /api/requests), update (PUT /api/requests/{id}).",
+      "Design error responses with appropriate status codes and messages.",
+      "Implement OrganAvailabilityController (GET /api/Organ-availability) with summary of Organ unit counts per Organ type, for frontend dashboard.",
+      "Add CORS configuration to allow React frontend requests."
+    ],
+    "files_to_add": [
+      "/home/coder/project/workspace/question_generation_service/solutions/332a0778-9402-4e30-ae6a-c44dd4be37ff/springapp/src/main/java/com/examly/springapp/controller/DonorController.java",
+      "/home/coder/project/workspace/question_generation_service/solutions/332a0778-9402-4e30-ae6a-c44dd4be37ff/springapp/src/main/java/com/examly/springapp/controller/OrganRequestController.java",
+      "/home/coder/project/workspace/question_generation_service/solutions/332a0778-9402-4e30-ae6a-c44dd4be37ff/springapp/src/main/java/com/examly/springapp/controller/OrganAvailabilityController.java",
+      "/home/coder/project/workspace/question_generation_service/solutions/332a0778-9402-4e30-ae6a-c44dd4be37ff/springapp/src/main/java/com/examly/springapp/config/CorsConfig.java"
+    ],
+    "files_to_edit": [],
+    "description": "Exposes RESTful APIs for frontend consumption, handling HTTP requests, validation, and correct response codes. Also includes endpoint supporting Organ availability dashboard needs and configures CORS for integration."
+  },
+  {
+    "step": "Implement Global Exception Handling and Error DTOs",
+    "sub_steps": [
+      "Create ErrorResponse DTO for standard error message structure.",
+      "Make GlobalExceptionHandler using @ControllerAdvice to handle validation errors and not-found exceptions.",
+      "Ensure correct HTTP status codes (400 on validation issues, 404 on missing resources, 201/200 on success)."
+    ],
+    "files_to_add": [
+      "/home/coder/project/workspace/question_generation_service/solutions/332a0778-9402-4e30-ae6a-c44dd4be37ff/springapp/src/main/java/com/examly/springapp/dto/ErrorResponse.java",
+      "/home/coder/project/workspace/question_generation_service/solutions/332a0778-9402-4e30-ae6a-c44dd4be37ff/springapp/src/main/java/com/examly/springapp/exception/GlobalExceptionHandler.java"
+    ],
+    "files_to_edit": [],
+    "description": "Centralizes error responses, makes endpoint responses predictable, and simplifies error management and testability based on the error behaviors described in requirements."
+  },
+  {
+    "step": "Implement ALL JUnit backend test cases as specified",
+    "sub_steps": [
+      "Create/modify test files for controller/service testing per the detailed test cases in the JSON.",
+      "testDonorRegistration: Valid donor POST, status 201, response data assertions.",
+      "testDonorValidation: Invalid donor (age < 18, invalid OrganType), expect 400 with error message.",
+      "testOrganRequestCreation: Valid request, POST, status 201, correct data, status=PENDING.",
+      "testOrganRequestStatusUpdate: Update request status to FULFILLED, expect 200, invalid id -> 404.",
+      "testGetAllDonors: Multiple donors, check GET endpoint returns all donors.",
+      "Set up mocks for repositories/services as needed."
+    ],
+    "files_to_add": [
+      "/home/coder/project/workspace/question_generation_service/solutions/332a0778-9402-4e30-ae6a-c44dd4be37ff/springapp/src/test/java/com/examly/springapp/controller/DonorControllerTest.java",
+      "/home/coder/project/workspace/question_generation_service/solutions/332a0778-9402-4e30-ae6a-c44dd4be37ff/springapp/src/test/java/com/examly/springapp/controller/OrganRequestControllerTest.java"
+    ],
+    "files_to_edit": [
+      "/home/coder/project/workspace/question_generation_service/solutions/332a0778-9402-4e30-ae6a-c44dd4be37ff/springapp/src/test/java/com/examly/springapp/OrganDonationManagementSystemApplicationTests.java"
+    ],
+    "description": "Implements ALL JUnit backend tests mapped one-to-one to provided backend test cases, verifying all major endpoints, validation paths, and error responses as described. Uses repository/service mocking where required."
+  },
+  {
+    "step": "Compile and test backend (Spring Boot/JUnit)",
+    "sub_steps": [
+      "Run mvn clean compile -q -Dspring.main.banner-mode=off to compile Java code.",
+      "Run mvn test -q -Dspring.main.banner-mode=off to execute all backend test cases.",
+      "Run mvn clean install -q -Dspring.main.banner-mode=off for full build."
+    ],
+    "files_to_add": [],
+    "files_to_edit": [],
+    "description": "Verifies backend compiles cleanly and passes all test cases before moving on to React frontend implementation."
+  },
+  {
+    "step": "Read and analyze package.json for React dependencies",
+    "sub_steps": [
+      "Read /home/coder/project/workspace/question_generation_service/solutions/332a0778-9402-4e30-ae6a-c44dd4be37ff/reactapp/package.json.",
+      "Note react, react-dom, testing-library/react, jest, and other libraries required for frontend.",
+      "Check CSS patterns and where components must be placed inside src/."
+    ],
+    "files_to_add": [],
+    "files_to_edit": [
+      "/home/coder/project/workspace/question_generation_service/solutions/332a0778-9402-4e30-ae6a-c44dd4be37ff/reactapp/package.json"
+    ],
+    "description": "Understand frontend environment, library versions, and where to structure new component and test files."
+  },
+  {
+    "step": "Implement DonorRegistrationForm component and styles with validation",
+    "sub_steps": [
+      "Create DonorRegistrationForm in src/components/",
+      "Form fields: name, age, gender (select), OrganType (select), contactNumber, email, address, lastDonationDate (date, optional)",
+      "Field validations: required fields, type checks, regex for email/phone, min-age, Organ type selection, valid date (not in future)",
+      "Disable submit until valid; show error messages per field.",
+      "Display loading indicator during submission.",
+      "On successful POST, show a success message.",
+      "Add CSS with required design system (container, label, input, accent color, error).",
+      "Update App.js to render this component."
+    ],
+    "files_to_add": [
+      "/home/coder/project/workspace/question_generation_service/solutions/332a0778-9402-4e30-ae6a-c44dd4be37ff/reactapp/src/components/DonorRegistrationForm.js",
+      "/home/coder/project/workspace/question_generation_service/solutions/332a0778-9402-4e30-ae6a-c44dd4be37ff/reactapp/src/components/DonorRegistrationForm.test.js"
+    ],
+    "files_to_edit": [
+      "/home/coder/project/workspace/question_generation_service/solutions/332a0778-9402-4e30-ae6a-c44dd4be37ff/reactapp/src/App.js",
+      "/home/coder/project/workspace/question_generation_service/solutions/332a0778-9402-4e30-ae6a-c44dd4be37ff/reactapp/src/App.css"
+    ],
+    "description": "Creates a robust, reusable donor registration form supporting all field and UX requirements, with validation logic, messages, user feedback and tests tied to test case expectations. Integrates design system and form usability standards."
+  },
+  {
+    "step": "Implement OrganRequestDashboard component with filtering, sorting, and styling",
+    "sub_steps": [
+      "Create OrganRequestDashboard component in src/components/",
+      "Fetch data from backend on mount (GET /api/requests).",
+      "Display using table or cards: hospitalName, OrganType, unitsRequired, urgency (color-coded), requestDate, status.",
+      "Add filters for Organ type/status, sorting by date/urgency.",
+      "Apply color indicators according to urgency (red/yellow/green) and status.",
+      "Handle empty states, loading spinner.",
+      "Wire up sorting/filtering via local React state.",
+      "Add necessary CSS and responsiveness.",
+      "Update App.js to render dashboard."
+    ],
+    "files_to_add": [
+      "/home/coder/project/workspace/question_generation_service/solutions/332a0778-9402-4e30-ae6a-c44dd4be37ff/reactapp/src/components/OrganRequestDashboard.js",
+      "/home/coder/project/workspace/question_generation_service/solutions/332a0778-9402-4e30-ae6a-c44dd4be37ff/reactapp/src/components/OrganRequestDashboard.test.js"
+    ],
+    "files_to_edit": [
+      "/home/coder/project/workspace/question_generation_service/solutions/332a0778-9402-4e30-ae6a-c44dd4be37ff/reactapp/src/App.js",
+      "/home/coder/project/workspace/question_generation_service/solutions/332a0778-9402-4e30-ae6a-c44dd4be37ff/reactapp/src/App.css"
+    ],
+    "description": "Delivers core UI for hospital/Organ bank staff, supporting data-driven list, filters, sorting, clear visual cues by urgency/status, and tests for all required dashboard behaviors with robust UX."
+  },
+  {
+    "step": "Implement OrganAvailabilityComponent with live stats and refresh capability",
+    "sub_steps": [
+      "Create OrganAvailabilityComponent in src/components/",
+      "Fetch Organ availability from backend endpoint (GET /api/Organ-availability).",
+      "Display all Organ types, units per type, with progress bars or visual indicators.",
+      "Color-code types with <5 units as low (e.g., red or warning color).",
+      "Show last updated timestamp.",
+      "Refresh button to refetch data and update display.",
+      "Show loading spinner or indicator during fetch.",
+      "Add proper container, layout and styles.",
+      "Update App.js to connect this component."
+    ],
+    "files_to_add": [
+      "/home/coder/project/workspace/question_generation_service/solutions/332a0778-9402-4e30-ae6a-c44dd4be37ff/reactapp/src/components/OrganAvailabilityComponent.js",
+      "/home/coder/project/workspace/question_generation_service/solutions/332a0778-9402-4e30-ae6a-c44dd4be37ff/reactapp/src/components/OrganAvailabilityComponent.test.js"
+    ],
+    "files_to_edit": [
+      "/home/coder/project/workspace/question_generation_service/solutions/332a0778-9402-4e30-ae6a-c44dd4be37ff/reactapp/src/App.js",
+      "/home/coder/project/workspace/question_generation_service/solutions/332a0778-9402-4e30-ae6a-c44dd4be37ff/reactapp/src/App.css"
+    ],
+    "description": "Implements required live analytics/overview widget, supporting data visualization, low availability warning, last update time, and easy refresh, all validated by relevant test cases."
+  },
+  {
+    "step": "Implement ALL Jest frontend test cases",
+    "sub_steps": [
+      "Implement testDonorRegistrationForm, testDonorFormValidation, testOrganRequestDashboard, testOrganAvailabilityComponent, testErrorHandling as described in JSON.",
+      "Write exact test names and checks: form field presence, required/disabled states, error messages, success flow, dashboard rendering, filter/sort, color indicators, API mocking, error scenario.",
+      "Mock APIs (fetch or axios as appropriate), set up loading and error states, verify DOM presence/absence/values according to each test definition.",
+      "NO manual cleanup() calls; use recommended React Testing Library patterns; unmount between test cases as appropriate."
+    ],
+    "files_to_add": [],
+    "files_to_edit": [
+      "/home/coder/project/workspace/question_generation_service/solutions/332a0778-9402-4e30-ae6a-c44dd4be37ff/reactapp/src/components/DonorRegistrationForm.test.js",
+      "/home/coder/project/workspace/question_generation_service/solutions/332a0778-9402-4e30-ae6a-c44dd4be37ff/reactapp/src/components/OrganRequestDashboard.test.js",
+      "/home/coder/project/workspace/question_generation_service/solutions/332a0778-9402-4e30-ae6a-c44dd4be37ff/reactapp/src/components/OrganAvailabilityComponent.test.js"
+    ],
+    "description": "Delivers required Jest test coverage, matching each UI/UX interaction, validation and edge/enabled/disabled/error/success scenario explicitly, on the implemented components. Ensures conformance to React Testing Library and CI-friendly execution."
+  },
+  {
+    "step": "Compile and test frontend (React/Jest)",
+    "sub_steps": [
+      "Run npm install in /home/coder/project/workspace/question_generation_service/solutions/332a0778-9402-4e30-ae6a-c44dd4be37ff/reactapp.",
+      "Run npm run build to ensure proper React compilation.",
+      "Run npx eslint src/ --fix to lint and auto-fix code.",
+      "Run npm run test:ci to run Jest tests in CI mode."
+    ],
+    "files_to_add": [],
+    "files_to_edit": [],
+    "description": "Validates that all React UI compiles, builds, lints, and passes required automated test cases, confirming integration and correctness."
+  }
+]

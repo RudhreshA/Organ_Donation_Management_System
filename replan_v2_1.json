@@ -1,0 +1,51 @@
+[
+  {
+    "step": "Implement ALL Jest frontend test cases - PART 1 (DonorRegistrationForm and DonorFormValidation)",
+    "sub_steps": [
+      "Implement testDonorRegistrationForm in DonorRegistrationForm.test.js: test rendering of fields, disabled/enabled state, error messages, loading and success behavior.",
+      "Implement testDonorFormValidation in DonorRegistrationForm.test.js: test validation logic per field (age, email, required, etc.), error messages, button enable logic, and correction flow.",
+      "Mock APIs as needed for these tests; avoid manual cleanup, use unmount() for teardown."
+    ],
+    "files_to_add": [],
+    "files_to_edit": [
+      "/home/coder/project/workspace/question_generation_service/solutions/332a0778-9402-4e30-ae6a-c44dd4be37ff/reactapp/src/components/DonorRegistrationForm.test.js"
+    ],
+    "description": "Splitting the ALL Jest frontend test cases implementation step into smaller parts. This part focuses on the Donor Registration Form tests and their validation, with proper mocking, error checks, and teardown as per requirements."
+  },
+  {
+    "step": "Implement ALL Jest frontend test cases - PART 2 (OrganRequestDashboard)",
+    "sub_steps": [
+      "Implement testOrganRequestDashboard in OrganRequestDashboard.test.js: test dashboard rendering, mock API data, field presence, color cues, filter and sort logic, loading/empty/edge states as needed."
+    ],
+    "files_to_add": [],
+    "files_to_edit": [
+      "/home/coder/project/workspace/question_generation_service/solutions/332a0778-9402-4e30-ae6a-c44dd4be37ff/reactapp/src/components/OrganRequestDashboard.test.js"
+    ],
+    "description": "Continuing Jest frontend test implementation; this part covers dashboard tests including mock data, UI checks for urgency/status, filters, and sort functionality."
+  },
+  {
+    "step": "Implement ALL Jest frontend test cases - PART 3 (OrganAvailabilityComponent and ErrorHandling)",
+    "sub_steps": [
+      "Implement testOrganAvailabilityComponent in OrganAvailabilityComponent.test.js: test display of all Organ types, color codes for low availability, last updated display, refresh logic, and loading/error scenarios.",
+      "Implement testErrorHandling in DonorRegistrationForm.test.js: test that submission errors are shown, form state is preserved, and submit button can recover. Mock failed API response and check error user feedback."
+    ],
+    "files_to_add": [],
+    "files_to_edit": [
+      "/home/coder/project/workspace/question_generation_service/solutions/332a0778-9402-4e30-ae6a-c44dd4be37ff/reactapp/src/components/OrganAvailabilityComponent.test.js",
+      "/home/coder/project/workspace/question_generation_service/solutions/332a0778-9402-4e30-ae6a-c44dd4be37ff/reactapp/src/components/DonorRegistrationForm.test.js"
+    ],
+    "description": "Final part for frontend Jest tests: covers Organ availability analytics, refresh, status colors, and general error handling in forms. Includes investigation of proper teardown, state restoration, and error display as per specs."
+  },
+  {
+    "step": "Compile and test frontend (React/Jest)",
+    "sub_steps": [
+      "Run npm install in /home/coder/project/workspace/question_generation_service/solutions/332a0778-9402-4e30-ae6a-c44dd4be37ff/reactapp.",
+      "Run npm run build to ensure proper React compilation.",
+      "Run npx eslint src/ --fix to lint and auto-fix code.",
+      "Run npm run test:ci to run Jest tests in CI mode."
+    ],
+    "files_to_add": [],
+    "files_to_edit": [],
+    "description": "Validates that all React UI compiles, builds, lints, and passes required automated test cases, confirming integration and correctness."
+  }
+]

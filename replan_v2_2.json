@@ -1,0 +1,55 @@
+[
+  {
+    "step": "FIX DonorRegistrationForm re-render infinite loop issue (FAILED JEST TESTS STEP)",
+    "sub_steps": [
+      "Open DonorRegistrationForm.js and DonorRegistrationForm.test.js code.",
+      "Review the validation logic: Ensure that no state-setting React hooks (e.g., setErrors) are called inside functions that run on every render (including inside render body, computed properties, helpers used during render, or inside JSX).",
+      "Move any setErrors or similar state-setting hooks so they are only called inside event handlers (onChange, onBlur, onSubmit) or inside useEffect with clear dependency arrays, but not unconditionally during render.",
+      "Refactor validation functions to return expected error messages instead of directly setting state during render cycle. Collect errors and setErrors either on blur, submit, or as controlled effect, but NOT on each render.",
+      "Review DonorRegistrationForm.test.js for triggering validation; ensure no test errors are due to repeated prop/state updates that might trigger re-renders.",
+      "Re-run DonorRegistrationForm and associated component tests locally (npm run test:ci) to verify that 'Too many re-renders' is resolved."
+    ],
+    "files_to_add": [],
+    "files_to_edit": [
+      "/home/coder/project/workspace/question_generation_service/solutions/332a0778-9402-4e30-ae6a-c44dd4be37ff/reactapp/src/components/DonorRegistrationForm.js",
+      "/home/coder/project/workspace/question_generation_service/solutions/332a0778-9402-4e30-ae6a-c44dd4be37ff/reactapp/src/components/DonorRegistrationForm.test.js"
+    ],
+    "description": "This step addresses the root cause of the Jest suite failure: 'Too many re-renders'. The code will be fixed so that validation or helper code does not trigger state updates during React renders. All setState-like side effects must be constrained to event handlers or effects, not within synchronous render/validation flows. After code changes, confirm test runs pass locally for the form component."
+  },
+  {
+    "step": "Implement ALL Jest frontend test cases - PART 2 (OrganRequestDashboard)",
+    "sub_steps": [
+      "Implement testOrganRequestDashboard in OrganRequestDashboard.test.js: test dashboard rendering, mock API data, field presence, color cues, filter and sort logic, loading/empty/edge states as needed."
+    ],
+    "files_to_add": [],
+    "files_to_edit": [
+      "/home/coder/project/workspace/question_generation_service/solutions/332a0778-9402-4e30-ae6a-c44dd4be37ff/reactapp/src/components/OrganRequestDashboard.test.js"
+    ],
+    "description": "Continuing Jest frontend test implementation; this part covers dashboard tests including mock data, UI checks for urgency/status, filters, and sort functionality."
+  },
+  {
+    "step": "Implement ALL Jest frontend test cases - PART 3 (OrganAvailabilityComponent and ErrorHandling)",
+    "sub_steps": [
+      "Implement testOrganAvailabilityComponent in OrganAvailabilityComponent.test.js: test display of all Organ types, color codes for low availability, last updated display, refresh logic, and loading/error scenarios.",
+      "Implement testErrorHandling in DonorRegistrationForm.test.js: test that submission errors are shown, form state is preserved, and submit button can recover. Mock failed API response and check error user feedback."
+    ],
+    "files_to_add": [],
+    "files_to_edit": [
+      "/home/coder/project/workspace/question_generation_service/solutions/332a0778-9402-4e30-ae6a-c44dd4be37ff/reactapp/src/components/OrganAvailabilityComponent.test.js",
+      "/home/coder/project/workspace/question_generation_service/solutions/332a0778-9402-4e30-ae6a-c44dd4be37ff/reactapp/src/components/DonorRegistrationForm.test.js"
+    ],
+    "description": "Final part for frontend Jest tests: covers Organ availability analytics, refresh, status colors, and general error handling in forms. Includes investigation of proper teardown, state restoration, and error display as per specs."
+  },
+  {
+    "step": "Compile and test frontend (React/Jest)",
+    "sub_steps": [
+      "Run npm install in /home/coder/project/workspace/question_generation_service/solutions/332a0778-9402-4e30-ae6a-c44dd4be37ff/reactapp.",
+      "Run npm run build to ensure proper React compilation.",
+      "Run npx eslint src/ --fix to lint and auto-fix code.",
+      "Run npm run test:ci to run Jest tests in CI mode."
+    ],
+    "files_to_add": [],
+    "files_to_edit": [],
+    "description": "Validates that all React UI compiles, builds, lints, and passes required automated test cases, confirming integration and correctness."
+  }
+]
